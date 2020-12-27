@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const port = 5000;
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
@@ -38,8 +37,8 @@ app.post('/api/users/register', (req, res) => {
   const user = new User(req.body);
 
   user.save((err, userInfo) => {
-    if (err) return res.json({ sucess: false, err });
-    return res.status(200).json({ sucess: true });
+    if (err) return res.json({ success: false, err });
+    return res.status(200).json({ success: true });
   });
 });
 
@@ -88,9 +87,10 @@ app.get('/api/users/auth', auth, (req, res) => {
 
 app.get('/api/users/logout', auth, (req, res) => {
   User.findOneAndUpdate({ _id: req.user._id }, { token: '' }, (err, user) => {
-    if (err) return res.json({ sucess: false, err });
-    return res.status(200).send({ sucess: true });
+    if (err) return res.json({ success: false, err });
+    return res.status(200).send({ success: true });
   });
 });
 
-app.listen(port, () => console.log(1));
+const port = 5000;
+app.listen(port, () => console.log(port));
